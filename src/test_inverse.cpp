@@ -22,7 +22,7 @@ int main() {
     for (int i = 0; i < num_sol; ++i) {                                 //for a given number of solutions
         std::cout << "Sol" << i + 1 << ":" << std::endl;                //for each solution (up to 8)
         for (int j = 0; j < 6; ++j) {                                   //for each joint, from joint 1 to joint 6
-            std::cout << "Joint " << j + 1 << ": " << q_sols[i][j] << std::endl;    //q=8*6 of doubles of solutions. Find the i-th solution's j-th member.
+            std::cout << "Joint " << j + 1 << " = " << q_sols[i][j] << std::endl;    //q=8*6 of doubles of solutions. Find the i-th solution's j-th member.
         }
         std::cout << std::endl;
     }

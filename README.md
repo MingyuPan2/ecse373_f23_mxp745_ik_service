@@ -313,3 +313,11 @@ Use the following T matrix as it fits with the code:
     {0.0, 0.0, 0.0, 1.0}};
 
 I included liny by line explanations in both ik_service.cpp and ik_client.cpp
+
+## Launch Nodes
+
+To launch the nodes, use the following command:
+
+    roslaunch ik_service ik_service.launch
+
+By examining the output of test_inverse.cpp and ik_service.cpp and ik_client.cpp, the two outputed solutions match with the same initial conditions.

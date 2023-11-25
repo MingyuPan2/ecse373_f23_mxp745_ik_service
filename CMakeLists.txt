@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   roscpp
   std_msgs
+  ur_kinematics
 )
 
 ## System dependencies are found with CMake's conventions
@@ -117,7 +118,7 @@ generate_messages(
 catkin_package(
   #INCLUDE_DIRS include
   #LIBRARIES ik_service
-  CATKIN_DEPENDS geometry_msgs message_generation roscpp std_msgs
+  CATKIN_DEPENDS geometry_msgs message_generation roscpp std_msgs ur_kinematics
   #DEPENDS system_lib
 )
 
@@ -149,6 +150,8 @@ include_directories(
 
 add_executable(ik_service src/ik_service.cpp)
 add_executable(ik_client src/ik_client.cpp)
+add_executable(test_forward src/test_forward.cpp)
+add_executable(test_inverse src/test_inverse.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -162,6 +165,8 @@ add_executable(ik_client src/ik_client.cpp)
 
 add_dependencies(ik_service ${ik_service_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(ik_client ${ik_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(test_forward ${ik_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(test_inverse ${ik_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -170,6 +175,8 @@ add_dependencies(ik_client ${ik_client_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGE
 
 target_link_libraries(ik_service ${catkin_LIBRARIES})
 target_link_libraries(ik_client ${catkin_LIBRARIES})
+target_link_libraries(test_forward ${catkin_LIBRARIES})
+target_link_libraries(test_inverse ${catkin_LIBRARIES})
 
 #############
 ## Install ##

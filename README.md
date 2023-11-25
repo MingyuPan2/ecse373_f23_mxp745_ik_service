@@ -117,6 +117,7 @@ The CMakeLists.txt file must be configured to generate the message and service t
 
 First, for the package.xml file, update to the following:
 
+    ...
   <buildtool_depend>catkin</buildtool_depend>
   
   <build_depend>geometry_msgs</build_depend>

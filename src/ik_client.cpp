@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 
     if (client.call(ik_pose))                 //call to send request to service, true if a response is received
     {
-        ROS_INFO("Calling ik_service gave %d solutions", ik_pose.response.num_sols); //access num_sol after receiving response
+        ROS_INFO("Calling ik_service gave %d solutions.", ik_pose.response.num_sols); //access num_sol after receiving response
 
         for (int i = 0; i < ik_pose.response.num_sols; ++i) {   //for all sets of joint solutions
             ROS_INFO("For solution set number %d :", i + 1);         //for each set of joint solutions

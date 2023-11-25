@@ -3,7 +3,7 @@
 
 int main() {
     double X_POS = 0.1;
-    double Y_POS = 0.1;
+    double Y_POS = 0.2;
     double Z_POS = 0.1;
 
     double T[4][4] = {{0.0, -1.0, 0.0, X_POS}, \

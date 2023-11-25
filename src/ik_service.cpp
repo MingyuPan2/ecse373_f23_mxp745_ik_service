@@ -20,6 +20,14 @@ bool pose_ik(ik_service::PoseIK::Request &req, ik_service::PoseIK::Response &res
 
     res.num_sols = num_sols;
 
+     for (int i = 0; i < num_sols; ++i) {
+        ik_service::JointSolutions joint_solution;
+        for (int j = 0; j < 6; ++j) {
+            joint_solution.joint_angles[j] = q_sols[i][j];
+            res.joint_solutions[i].joint_angles[j] = q_sols[i][j];
+        }
+    }
+
     return true;
 }
 

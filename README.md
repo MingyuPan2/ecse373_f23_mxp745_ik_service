@@ -117,7 +117,6 @@ The CMakeLists.txt file must be configured to generate the message and service t
 
 First, for the package.xml file, update to the following:
 
-    ...
   <buildtool_depend>catkin</buildtool_depend>
   
   <build_depend>geometry_msgs</build_depend>
@@ -197,3 +196,88 @@ Second, for CMakeList.txt file, update to the following:
 
 test_forward and test_inverse can be deleted if testing was not needed. 
 catkin_make to resolve any errors and warnings. 
+
+### 8. ur_kin.h
+
+The pose_ik service is supposed to return joint angles based on a desired position and orientation of the end effector. 
+
+The ur_kinematics package is part of the ecse_373_ariac ROS package which was downloaded in Part 1. To begin using it, add a "#include" statement to the main source code file "ur_kin.h" header file in the ur_kinematics package.
+
+    #include "ur_kinematics/ur_kin.h"
+
+To inspect the header file, use the following: 
+
+    gedit `rospack find ur_kinematics`/include/ur_kinematics/ur_kin.h
+
+The three functions, forward to inverse, are more thoroughly explained on page 8 of the lab pdf.
+
+### 9. test joint angle solutions
+
+This process is not needed for the lab, but helped me considerably while coding. 
+Two files were created: test_forward and test_inverse.
+
+For test_forward.cpp: 
+
+    #include <iostream>
+    #include "ur_kinematics/ur_kin.h"
+
+    int main() {
+        double q[] = {3.14, -1.13, 1.51, 3.77, -1.51, 0};
+
+        double T[4][4];
+
+        ur_kinematics::forward((double *)&q[0], (double *)&T[0][0]);
+
+        std::cout << "FK:" << std::endl;
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+            std::cout << T[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        return 0;
+    }
+
+Running this node gives the 4x4 end effector pose in row-major ordering:
+
+    rosrun ik_service test_forward 
+
+    FK:
+    -0.53232    0.0308074   -0.845983   -0.417974 
+    -0.0599112  -0.998203   0.00134736  -0.116661 
+    -0.844421   0.051401    0.533209    0.269513 
+    0           0           0           1 
+
+For test_inverse.cpp:
+
+    #include <iostream>
+    #include "ur_kinematics/ur_kin.h"
+
+    int main() {
+        double X_POS = 0.1;
+        double Y_POS = 0.2;
+        double Z_POS = 0.1;
+
+        double T[4][4] = {{0.0, -1.0, 0.0, X_POS}, \
+                      {0.0, 0.0, 1.0, Y_POS}, \
+                      {-1.0, 0.0, 0.0 , Z_POS}, \
+                      {0.0, 0.0, 0.0, 1.0}};
+
+        int num_sol;
+
+        double q_sols[8][6];
+
+        num_sol = ur_kinematics::inverse(&T[0][0], &q_sols[0][0], 0.0);
+
+        std::cout << "# of solutiuons: " << num_sol << std::endl;
+
+        for (int i = 0; i < num_sol; ++i) {
+            std::cout << "Sol" << i + 1 << ":" << std::endl;
+            for (int j = 0; j < 6; ++j) {
+             std::cout << "Joint " << j + 1 << ": " << q_sols[i][j] << std::endl;
+            }
+            std::cout << std::endl;
+        }
+        return 0;
+    }

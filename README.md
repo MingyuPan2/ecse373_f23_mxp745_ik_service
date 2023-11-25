@@ -281,3 +281,35 @@ For test_inverse.cpp:
         }
         return 0;
     }
+
+double []_POS values can be changed to test different configurations, which gives the following:
+
+    rosrun ik_service test_inverse 
+    # of solutiuons: 8
+    Sol1:
+    Joint 1: 0.580725
+    Joint 2: 5.34868
+    Joint 3: 1.82644
+    Joint 4: 0.678867
+    Joint 5: 1.5708
+    Joint 6: 2.15152
+
+    Sol2:
+    Joint 1: 0.580725
+    Joint 2: 0.720034
+    Joint 3: 4.45675
+    Joint 4: 2.6772
+    Joint 5: 1.5708
+    Joint 6: 2.15152
+    ...
+
+### 10. modify ik_service and ik_client nodes
+
+Use the following T matrix as it fits with the code:
+
+    double T[4][4] = {{0.0, -1.0, 0.0, X_POS}, \
+    {0.0, 0.0, 1.0, Y_POS}, \
+    {-1.0, 0.0, 0.0 , Z_POS}, \
+    {0.0, 0.0, 0.0, 1.0}};
+
+I included liny by line explanations in both ik_service.cpp and ik_client.cpp

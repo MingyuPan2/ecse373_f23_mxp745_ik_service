@@ -6,9 +6,9 @@ int main() {
     double Y_POS = 0.2;                 //change to desired value
     double Z_POS = 0.1;
 
-    double T[4][4] = {{0.0, -1.0, 0.0, X_POS}, \    //2d definition,gripper facing down
-                      {0.0, 0.0, 1.0, Y_POS}, \
-                      {-1.0, 0.0, 0.0 , Z_POS}, \
+    double T[4][4] = {{0.0, -1.0, 0.0, X_POS},    //2d definition,gripper facing down
+                      {0.0, 0.0, 1.0, Y_POS},
+                      {-1.0, 0.0, 0.0 , Z_POS},
                       {0.0, 0.0, 0.0, 1.0}};
 
     int num_sol;                                    // num_sol = # of solutions variable

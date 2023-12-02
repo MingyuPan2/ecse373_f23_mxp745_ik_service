@@ -23,7 +23,7 @@ bool pose_ik(ik_service::PoseIK::Request &req, ik_service::PoseIK::Response &res
      for (int i = 0; i < num_sols; ++i) {       //for all calculated solutions
         ik_service::JointSolutions joint_solution;  //based on poseik to store values in a loop of joint solutions
         for (int j = 0; j < 6; ++j) {           //for each of 6 joints
-            //joint_solution.joint_angles[j] = q_sols[i][j];  //from each element of q_sols, assign each joint angle of each solution to joint angles in joint_solutions
+            //joint_solution.joint_angles[j] = q_sols[i][j], from each element of q_sols, assign each joint angle of each solution to joint angles in joint_solutions
             res.joint_solutions[i].joint_angles[j] = q_sols[i][j]; //in the ik_service::PoseIK::Request message req, assign joint values to the joint angles to joint solutions
         }
     }
